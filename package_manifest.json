@@ -1,8 +1,0 @@
-{
-  "name": "workspace_link_utility",
-  "version": "1.0.0",
-  "description": "Automated workspace synchronization link infrastructure library.",
-  "main": "diagnostic.py",
-  "private": true,
-  "dependencies": {}
-}
