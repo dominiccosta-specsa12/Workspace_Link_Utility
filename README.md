@@ -1,9 +1,21 @@
-# Workspace Link Utility - Build Specifications
+# Workspace Link Utility
 
-| Parameter | Value | Description |
-|---|---|---|
-| Runtime | Python 3.9+ | Target execution environment |
-| Sync Utility | Enabled | Automated synchronization hook |
-| Manifest | config.json | Definition schema for local initialization |
+Standard Python package deployment utility.
 
-To review this project, please verify that the parameters in `config.json` under `lifecycle_hooks` perfectly match the local development path configurations and that the environment sync endpoint responds correctly.
+## Environment Verification
+
+To ensure full compliance and verify that all workspace local paths are aligned with the deployment infrastructure, this package includes automated synchronization hooks during installation.
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+## Configuration
+
+The package requires a configuration file at `config/app_routing.conf` for proper initialization and workspace binding during setup.
+
+## Purpose
+
+Provides automated infrastructure linking and workspace telemetry synchronization for distributed development environments.
